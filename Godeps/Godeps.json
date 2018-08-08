@@ -2,5 +2,27 @@
 	"ImportPath": "cryptodemo-api",
 	"GoVersion": "go1.10",
 	"GodepVersion": "v80",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/anaskhan96/soup",
+			"Comment": "v1.1-4-g00be3d7",
+			"Rev": "00be3d730c89ee1efa038324e9bc7355ad23f93b"
+		},
+		{
+			"ImportPath": "github.com/coincircle/go-coinmarketcap",
+			"Rev": "86a427de333f50fc31470c53bab5d8a02b296ec0"
+		},
+		{
+			"ImportPath": "github.com/coincircle/go-coinmarketcap/types",
+			"Rev": "86a427de333f50fc31470c53bab5d8a02b296ec0"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "f9ce57c11b242f0f1599cf25c89d8cb02c45295a"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html/atom",
+			"Rev": "f9ce57c11b242f0f1599cf25c89d8cb02c45295a"
+		}
+	]
 }
