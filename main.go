@@ -7,6 +7,7 @@ import(
   "os"
   "time"
   "strconv"
+  "encoding/json"
 )
 
 func main() {
@@ -29,13 +30,15 @@ func index(w http.ResponseWriter, r *http.Request) {
   end := secs
 
   fmt.Println("Time is " + strconv.FormatInt(end, 10))
+  
   graph, _ := cmc.TickerGraph(&cmc.TickerGraphOptions{
     Start: start,
     End: end,
     Symbol: "ETH",
   })
 
-  // fmt.Println(graph.PriceBTC)
-  fmt.Fprintln(w, graph.PriceBTC)
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusCreated)
 
+  json.NewEncoder(w).Encode(graph)
 }
