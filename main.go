@@ -7,27 +7,39 @@ import(
   // "os"
   // "time"
   // "strconv"
-  // "encoding/json"
+  "encoding/json"
 
   // cmc "github.com/coincircle/go-coinmarketcap"
 
-  // "github.com/dgrijalva/jwt-go"
+  "github.com/dgrijalva/jwt-go"
   // "github.com/gorilla/context"
   "github.com/gorilla/mux"
   // "github.com/mitchellh/mapstructure"
 )
 
 type User struct {
-  Name string
-  Password string
+  Name     string `json:"name"`
+  Password string `json:"password"`
 }
 
 type JwtToken struct {
-  Token string
+  Token string `json:"token"`
 }
 
 func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
   fmt.Println("Create Token Endpoint")
+  var user User
+  _ = json.NewDecoder(req.Body).Decode(&user)
+  token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+    "name":     user.Name,
+    "password": user.Password,
+  })
+  tokenString, err := token.SignedString([]byte("testsecret"))
+  if err != nil {
+    fmt.Println(err)
+  }
+
+  json.NewEncoder(w).Encode(JwtToken{Token: tokenString})
 }
 
 func ProtectedEndpoint(w http.ResponseWriter, req *http.Request) {
