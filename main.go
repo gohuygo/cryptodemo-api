@@ -14,7 +14,7 @@ import(
   "github.com/dgrijalva/jwt-go"
   // "github.com/gorilla/context"
   "github.com/gorilla/mux"
-  "github.com/mitchellh/mapstructure"
+  // "github.com/mitchellh/mapstructure"
 )
 
 type User struct {
@@ -35,10 +35,13 @@ func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
 
   var user User
 
+  // TODO: Validate body has name/pw
   _ = json.NewDecoder(req.Body).Decode(&user)
 
   token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-    "name":  user.Name,
+    "sub":  user.Name,
+    "iss": "cryptodemo",
+    //"exp": Time
   })
 
   tokenString, err := token.SignedString([]byte("testsecret"))
@@ -61,9 +64,9 @@ func ProtectedEndpoint(w http.ResponseWriter, req *http.Request) {
   fmt.Println(params)
 
   if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-      var user User
-      mapstructure.Decode(claims, &user)
-      json.NewEncoder(w).Encode(user)
+      // var user User
+      // mapstructure.Decode(claims, &user)
+      json.NewEncoder(w).Encode(claims)
   } else {
       json.NewEncoder(w).Encode(Exception{Message: "Invalid authorization token"})
   }
@@ -105,6 +108,7 @@ func IndexEndpoint(w http.ResponseWriter, r *http.Request) {
     Symbol: "ETH",
   })
 
+  w.Header().Set("Access-Control-Allow-Origin", "*")
   w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusCreated)
 
