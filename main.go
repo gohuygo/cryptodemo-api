@@ -36,12 +36,10 @@ func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
   var user User
 
   _ = json.NewDecoder(req.Body).Decode(&user)
-  fmt.Println(req.Body)
-  fmt.Println(user)
+
   token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
     "name":  user.Name,
   })
-
 
   tokenString, err := token.SignedString([]byte("testsecret"))
   if err != nil { fmt.Println(err) }
