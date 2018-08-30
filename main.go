@@ -30,9 +30,38 @@ type Exception struct {
   Message string `json:"message"`
 }
 
+
+func IndexEndpoint(w http.ResponseWriter, r *http.Request) {
+  threeMonths := int64(60 * 60 * 24 * 90)
+  now := time.Now()
+  secs := now.Unix()
+  start := secs - threeMonths
+  end := secs
+
+  fmt.Println("Time is " + strconv.FormatInt(end, 10))
+
+  graph, _ := cmc.TickerGraph(&cmc.TickerGraphOptions{
+    Start: start,
+    End: end,
+    Symbol: "ETH",
+  })
+
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusCreated)
+
+  json.NewEncoder(w).Encode(graph)
+}
+
+func setupResponse(w http.ResponseWriter, req *http.Request) {
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+  w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+  w.WriteHeader(http.StatusCreated)
+}
+
 func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
   fmt.Println("Create Token Endpoint")
-
   var user User
 
   // TODO: Validate body has name/pw
@@ -46,6 +75,7 @@ func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
 
   tokenString, err := token.SignedString([]byte("testsecret"))
   if err != nil { fmt.Println(err) }
+  setupResponse(w, req)
 
   json.NewEncoder(w).Encode(JwtToken{Token: tokenString})
 }
@@ -92,25 +122,3 @@ func main() {
   log.Fatal(http.ListenAndServe(":"+port, router))
 }
 
-
-func IndexEndpoint(w http.ResponseWriter, r *http.Request) {
-  threeMonths := int64(60 * 60 * 24 * 90)
-  now := time.Now()
-  secs := now.Unix()
-  start := secs - threeMonths
-  end := secs
-
-  fmt.Println("Time is " + strconv.FormatInt(end, 10))
-
-  graph, _ := cmc.TickerGraph(&cmc.TickerGraphOptions{
-    Start: start,
-    End: end,
-    Symbol: "ETH",
-  })
-
-  w.Header().Set("Access-Control-Allow-Origin", "*")
-  w.Header().Set("Content-Type", "application/json")
-  w.WriteHeader(http.StatusCreated)
-
-  json.NewEncoder(w).Encode(graph)
-}
