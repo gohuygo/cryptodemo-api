@@ -8,6 +8,7 @@ import(
   "time"
   "strconv"
   "encoding/json"
+  "./models"
 
   cmc "github.com/coincircle/go-coinmarketcap"
 
@@ -16,11 +17,6 @@ import(
   "github.com/gorilla/mux"
   // "github.com/mitchellh/mapstructure"
 )
-
-type User struct {
-  Name     string `json:"name"`
-  Password string `json:"password"`
-}
 
 type JwtToken struct {
   Token string `json:"token"`
@@ -62,7 +58,7 @@ func setupResponse(w http.ResponseWriter, req *http.Request) {
 
 func CreateTokenEndpoint(w http.ResponseWriter, req *http.Request) {
   fmt.Println("Create Token Endpoint")
-  var user User
+  var user models.User
 
   // TODO: Validate body has name/pw
   _ = json.NewDecoder(req.Body).Decode(&user)
