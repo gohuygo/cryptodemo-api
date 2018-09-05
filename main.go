@@ -35,7 +35,9 @@ func ProtectedEndpoint(w http.ResponseWriter, req *http.Request) {
 
   fmt.Println(params)
 
-  if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+  claims, ok := token.Claims.(jwt.MapClaims)
+
+  if ok && token.Valid {
       // var user User
       // mapstructure.Decode(claims, &user)
       json.NewEncoder(w).Encode(claims)
