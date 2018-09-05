@@ -13,7 +13,9 @@ type JwtToken struct {
   Token string `json:"token"`
 }
 
-type AuthenticationController struct{}
+type AuthenticationController struct{
+  // TODO: Connection to DB
+}
 
 func NewAuthenticationController() *AuthenticationController {
   return &AuthenticationController{}
