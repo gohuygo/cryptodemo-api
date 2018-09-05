@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
   "fmt"
@@ -8,10 +8,15 @@ import (
   "time"
   "strconv"
   cmc "github.com/coincircle/go-coinmarketcap"
-
 )
 
-func IndexEndpoint(w http.ResponseWriter, r *http.Request) {
+type HomeController struct{}
+
+func NewHomeController() *HomeController {
+  return &HomeController{}
+}
+
+func (hc HomeController) IndexEndpoint(w http.ResponseWriter, r *http.Request) {
   threeMonths := int64(60 * 60 * 24 * 90)
   now := time.Now()
   secs := now.Unix()

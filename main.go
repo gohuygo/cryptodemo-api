@@ -86,9 +86,11 @@ func main() {
   router := mux.NewRouter()
   fmt.Println("Starting application...")
 
+  homeController := controllers.NewHomeController()
+
   router.HandleFunc("/authenticate",  CreateTokenEndpoint).Methods("POST")
   router.HandleFunc("/protected",  ProtectedEndpoint).Methods("GET")
-  router.HandleFunc("/", controller.IndexEndpoint)
+  router.HandleFunc("/", homeController.IndexEndpoint)
 
   log.Fatal(http.ListenAndServe(":"+port, router))
 }
