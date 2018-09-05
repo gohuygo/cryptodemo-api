@@ -1,16 +1,14 @@
 package main
 
-import(
+import (
   "fmt"
   "log"
   "net/http"
   "os"
-  "time"
-  "strconv"
+
   "encoding/json"
   "./models"
-
-  cmc "github.com/coincircle/go-coinmarketcap"
+  "./controllers"
 
   "github.com/dgrijalva/jwt-go"
   // "github.com/gorilla/context"
@@ -24,29 +22,6 @@ type JwtToken struct {
 
 type Exception struct {
   Message string `json:"message"`
-}
-
-
-func IndexEndpoint(w http.ResponseWriter, r *http.Request) {
-  threeMonths := int64(60 * 60 * 24 * 90)
-  now := time.Now()
-  secs := now.Unix()
-  start := secs - threeMonths
-  end := secs
-
-  fmt.Println("Time is " + strconv.FormatInt(end, 10))
-
-  graph, _ := cmc.TickerGraph(&cmc.TickerGraphOptions{
-    Start: start,
-    End: end,
-    Symbol: "ETH",
-  })
-
-  w.Header().Set("Access-Control-Allow-Origin", "*")
-  w.Header().Set("Content-Type", "application/json")
-  w.WriteHeader(http.StatusCreated)
-
-  json.NewEncoder(w).Encode(graph)
 }
 
 func setupResponse(w http.ResponseWriter, req *http.Request) {
@@ -113,7 +88,7 @@ func main() {
 
   router.HandleFunc("/authenticate",  CreateTokenEndpoint).Methods("POST")
   router.HandleFunc("/protected",  ProtectedEndpoint).Methods("GET")
-  router.HandleFunc("/", IndexEndpoint)
+  router.HandleFunc("/", controller.IndexEndpoint)
 
   log.Fatal(http.ListenAndServe(":"+port, router))
 }
