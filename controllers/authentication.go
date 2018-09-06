@@ -3,10 +3,11 @@ package controllers
 import(
   "fmt"
   "net/http"
-  "github.com/dgrijalva/jwt-go"
   "encoding/json"
 
-   "../models"
+   // "../models"
+  "github.com/gohuygo/cryptodemo-api/models"
+  "github.com/dgrijalva/jwt-go"
 )
 
 type JwtToken struct {

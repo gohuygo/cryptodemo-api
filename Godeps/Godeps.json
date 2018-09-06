@@ -1,6 +1,6 @@
 {
-	"ImportPath": "cryptodemo-api",
-	"GoVersion": "go1.10",
+	"ImportPath": "github.com/gohuygo/cryptodemo-api",
+	"GoVersion": "go1.11",
 	"GodepVersion": "v80",
 	"Deps": [
 		{
@@ -15,6 +15,21 @@
 		{
 			"ImportPath": "github.com/coincircle/go-coinmarketcap/types",
 			"Rev": "86a427de333f50fc31470c53bab5d8a02b296ec0"
+		},
+		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.2.0-2-g0b96aaa",
+			"Rev": "0b96aaa707760d6ab28d9b9d1913ff5993328bae"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Comment": "v1.1.1",
+			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.2-5-ge48e440",
+			"Rev": "e48e440e4c92e3251d812f8ce7858944dfa3331c"
 		},
 		{
 			"ImportPath": "golang.org/x/net/html",

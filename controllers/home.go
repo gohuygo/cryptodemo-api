@@ -7,6 +7,7 @@ import (
   "net/http"
   "time"
   "strconv"
+
   cmc "github.com/coincircle/go-coinmarketcap"
 )
 
