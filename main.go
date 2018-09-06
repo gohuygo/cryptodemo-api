@@ -6,9 +6,10 @@ import (
   "net/http"
   "os"
 
-  "./controllers"
-  "./middleware"
-
+  // "./controllers"
+  // "./middleware"
+  "github.com/gohuygo/cryptodemo-api/controllers"
+  "github.com/gohuygo/cryptodemo-api/middleware"
   "github.com/gorilla/mux"
 )
 
@@ -27,7 +28,7 @@ func main() {
 
   // Set development port
   if port  == "" {
-    port = "8080"
+    port = "80"
   }
 
   router := mux.NewRouter()
