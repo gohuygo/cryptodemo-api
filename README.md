@@ -3,4 +3,4 @@
 # Docker
 
 docker build -t cryptodemo:latest .
-docker run -p 80:80 cryptodemo:latest
+docker run -p 8080:8080 cryptodemo:latest

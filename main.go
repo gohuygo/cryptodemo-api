@@ -28,7 +28,7 @@ func main() {
 
   // Set development port
   if port  == "" {
-    port = "80"
+    port = "8080"
   }
 
   router := mux.NewRouter()
