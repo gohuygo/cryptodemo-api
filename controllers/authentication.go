@@ -5,7 +5,6 @@ import(
   "net/http"
   "encoding/json"
 
-   // "../models"
   "github.com/gohuygo/cryptodemo-api/models"
   "github.com/dgrijalva/jwt-go"
 )
