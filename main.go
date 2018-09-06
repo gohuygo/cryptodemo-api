@@ -13,7 +13,6 @@ import (
 )
 
 
-
 func ProtectedEndpoint(w http.ResponseWriter, req *http.Request) {
   fmt.Println("Protected Endpoint!!")
   w.Header().Set("Content-Type", "application/json")
@@ -21,7 +20,6 @@ func ProtectedEndpoint(w http.ResponseWriter, req *http.Request) {
   // json.NewEncoder(w).Encode([]byte("Accessed Protected Endpoint!"))
   w.Write([]byte("Accessed Protected Endpoint!"))
 }
-
 
 func main() {
   // Set production port (Heroku)

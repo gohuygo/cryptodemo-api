@@ -20,7 +20,7 @@ func NewTokenValidator() *TokenValidator {
   return &TokenValidator{}
 }
 
-func (tv TokenValidator) Validate(next http.HandlerFunc) http.HandlerFunc {
+func (tv TokenValidator) Validate(endpoint http.HandlerFunc) http.HandlerFunc {
   return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
     authorizationHeader := req.Header.Get("authorization")
     if authorizationHeader != "" {
@@ -28,9 +28,11 @@ func (tv TokenValidator) Validate(next http.HandlerFunc) http.HandlerFunc {
       if len(bearerToken) == 2 {
         token, error := jwt.Parse(bearerToken[1], func(token *jwt.Token) (interface{}, error) {
           _, ok := token.Method.(*jwt.SigningMethodHMAC)
+
           if !ok {
             return nil, fmt.Errorf("There was an error")
           }
+
           return []byte("testsecret"), nil
         })
         fmt.Println(token)
@@ -41,7 +43,7 @@ func (tv TokenValidator) Validate(next http.HandlerFunc) http.HandlerFunc {
 
         if token.Valid {
           context.Set(req, "decoded", token.Claims)
-          next(w, req) //if valid, call the endpoint
+          endpoint(w, req) //if valid, call the endpoint
         } else {
           json.NewEncoder(w).Encode(Exception{Message: "Invalid authorization token"})
         }
