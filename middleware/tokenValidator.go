@@ -35,7 +35,6 @@ func (tv TokenValidator) Validate(endpoint http.HandlerFunc) http.HandlerFunc {
 
           return []byte("testsecret"), nil
         })
-        fmt.Println(token)
         if error != nil {
           json.NewEncoder(w).Encode(Exception{Message: error.Error()})
           return

@@ -26,11 +26,13 @@ func (hc HomeController) IndexEndpoint(w http.ResponseWriter, r *http.Request) {
 
   fmt.Println("Time is " + strconv.FormatInt(end, 10))
 
-  graph, _ := cmc.TickerGraph(&cmc.TickerGraphOptions{
+  graph, err := cmc.TickerGraph(&cmc.TickerGraphOptions{
     Start: start,
     End: end,
     Symbol: "ETH",
   })
+
+  fmt.Println(err)
 
   w.Header().Set("Access-Control-Allow-Origin", "*")
   w.Header().Set("Content-Type", "application/json")
