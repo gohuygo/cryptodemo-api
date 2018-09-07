@@ -2,9 +2,11 @@
 
 ### Docker
 
-`docker build -t cryptodemo:latest .`
+`docker build -t gohuygo/cryptodemo:latest .`
 
-`docker run -p 80:80 cryptodemo:latest`
+`docker run -p 80:80 gohuygo/cryptodemo:latest`
+
+`docker push gohuygo/cryptodemo`
 
 Remove all dangling data:
 
