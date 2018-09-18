@@ -6,11 +6,15 @@ import (
   "net/http"
   "os"
 
+  // Docker issue with referencing local files?
   // "./controllers"
   // "./middleware"
   "github.com/gohuygo/cryptodemo-api/controllers"
   "github.com/gohuygo/cryptodemo-api/middleware"
   "github.com/gorilla/mux"
+
+  "database/sql"
+  _ "github.com/lib/pq"
 )
 
 
@@ -30,6 +34,8 @@ func main() {
   if port  == "" {
     port = "80"
   }
+
+  db, err := sql.Open("postgres", "postgres://test:password@localhost/cryptodemo?sslmode=disable"  )
 
   router := mux.NewRouter()
   fmt.Println("Starting application...")
