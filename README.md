@@ -1,5 +1,11 @@
 ## Sample Go App Using CoinMarketCap (CMC) API
 
+`go run main.go`
+
+### Postgres
+
+`psql postgres`
+
 ### Docker
 
 `docker build -t gohuygo/cryptodemo:latest .`
