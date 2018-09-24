@@ -35,7 +35,7 @@ func main() {
     port = "80"
   }
 
-  db, err := sql.Open("postgres", "postgres://test:password@localhost/cryptodemo?sslmode=disable"  )
+  db, err := sql.Open("postgres", "postgres://test:password@localhost/cryptodemo?sslmode=disable")
 
   router := mux.NewRouter()
   fmt.Println("Starting application...")
